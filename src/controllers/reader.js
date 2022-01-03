@@ -34,7 +34,7 @@ exports.readOne = (req, res) => {
 
 exports.updateReader = (req, res) => {
   const id = req.params.id;
-  Reader.update(req.body, { where: { id: id } }).then(([entriesUpdated]) => {
+  Reader.update(req.body, { where: { id } }).then(([entriesUpdated]) => {
     if (entriesUpdated) {
       res.status(200).json(entriesUpdated);
     } else {
@@ -47,7 +47,7 @@ exports.deleteReader = (req, res) => {
   const id = req.params.id;
   Reader.destroy({
     where: {
-      id: id,
+      id,
     },
   }).then((deleted) => {
     if (deleted) {

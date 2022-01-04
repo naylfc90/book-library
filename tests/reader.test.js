@@ -29,6 +29,19 @@ describe("/readers", () => {
         expect(newReaderRecord.email).to.equal("future_ms_darcy@gmail.com");
         expect(newReaderRecord.password).to.equal("password");
       });
+
+      it("checks validation when creating new reader", async () => {
+        const response = await request(app).post("/reader").send({
+          name: "Elizabeth",
+          email: "future_ms_darcy@gmail.com",
+          password: "pword",
+        });
+        const newReaderRecord = await Reader.findByPk(response.body.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(400);
+      });
     });
   });
 

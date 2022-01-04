@@ -3,20 +3,21 @@ module.exports = (connection, DataTypes) => {
   const schema = {
     email: {
       type: DataTypes.STRING,
-      required: true,
-      notEmpty: true,
-      isEmail: true,
+      validate: {
+        notEmpty: true,
+        isEmail: true,
+      },
     },
     name: {
       type: DataTypes.STRING,
-      required: true,
-      notEmpty: true,
+      validate: {
+        notEmpty: true,
+      },
     },
     password: {
       type: DataTypes.STRING,
-      required: true,
-      notEmpty: true,
       validate: {
+        notEmpty: true,
         len: {
           args: [8],
           msg: "Password must be minimum 8 characters.",

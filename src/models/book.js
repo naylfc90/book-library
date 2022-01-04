@@ -1,10 +1,30 @@
 /* src/models/book.js */
 module.exports = (connection, DataTypes) => {
   const schema = {
-    title: DataTypes.STRING,
-    author: DataTypes.STRING,
-    genre: DataTypes.STRING,
-    ISBN: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    author: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    genre: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    ISBN: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
   };
 
   const BookModel = connection.define("Book", schema);

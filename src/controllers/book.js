@@ -1,18 +1,18 @@
 /* src/controllers/book.js */
 const { Book } = require("../models");
 
-exports.create = (req, res) => {
-  Book.create(req.body).then((book) => {
-    if (book) {
+exports.create = async (req, res) => {
+  try {
+    await Book.create(req.body).then((book) => {
       res.status(201).json(book);
-    } else {
-      res.status(404).json({ error: "The book could not be created." });
-    }
-  });
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
 };
 
-exports.read = (req, res) => {
-  Book.findAll().then((book) => {
+exports.read = async (req, res) => {
+  await Book.findAll().then((book) => {
     if (book) {
       res.status(200).json(book);
     } else {
@@ -21,9 +21,9 @@ exports.read = (req, res) => {
   });
 };
 
-exports.readOne = (req, res) => {
+exports.readOne = async (req, res) => {
   const id = req.params.id;
-  Book.findByPk(id).then((book) => {
+  await Book.findByPk(id).then((book) => {
     if (book) {
       res.status(200).json(book);
     } else {
@@ -32,9 +32,9 @@ exports.readOne = (req, res) => {
   });
 };
 
-exports.updateBook = (req, res) => {
+exports.updateBook = async (req, res) => {
   const id = req.params.id;
-  Book.update(req.body, { where: { id } }).then(([entriesUpdated]) => {
+  await Book.update(req.body, { where: { id } }).then(([entriesUpdated]) => {
     if (entriesUpdated) {
       res.status(200).json(entriesUpdated);
     } else {
@@ -43,9 +43,9 @@ exports.updateBook = (req, res) => {
   });
 };
 
-exports.deleteBook = (req, res) => {
+exports.deleteBook = async (req, res) => {
   const id = req.params.id;
-  Book.destroy({
+  await Book.destroy({
     where: {
       id,
     },

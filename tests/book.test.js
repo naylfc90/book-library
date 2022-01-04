@@ -31,6 +31,21 @@ describe("/books", () => {
         expect(newBookRecord.genre).to.equal("Crime & Thriller");
         expect(newBookRecord.ISBN).to.equal("9780241988268");
       });
+
+      it("checks validation when creating new book", async () => {
+        const response = await request(app).post("/book").send({
+          title: "",
+          author: "Richard Osman",
+          genre: "Crime & Thriller",
+          ISBN: "9780241988268",
+        });
+        const newBookRecord = await Book.findByPk(response.body.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(400);
+        expect(newBookRecord).to.equal(null);
+      });
     });
   });
 

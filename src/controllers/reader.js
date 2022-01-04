@@ -7,7 +7,7 @@ exports.create = async (req, res) => {
       res.status(201).json(reader);
     });
   } catch (err) {
-    res.sendStatus(400).json(err);
+    res.status(400).json(err);
   }
 };
 
@@ -17,7 +17,7 @@ exports.read = async (req, res) => {
       res.status(200).json(reader);
     });
   } catch (err) {
-    res.sendStatus(404).json(err);
+    res.status(404).json(err);
   }
 };
 

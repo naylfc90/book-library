@@ -32,15 +32,16 @@ describe("/readers", () => {
 
       it("checks validation when creating new reader", async () => {
         const response = await request(app).post("/reader").send({
-          name: "Elizabeth",
+          name: "",
           email: "future_ms_darcy@gmail.com",
-          password: "pword",
+          password: "password",
         });
         const newReaderRecord = await Reader.findByPk(response.body.id, {
           raw: true,
         });
 
         expect(response.status).to.equal(400);
+        expect(newReaderRecord).to.equal(null);
       });
     });
   });

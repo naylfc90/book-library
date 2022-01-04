@@ -8,10 +8,10 @@ readerRouter.post("/reader", readerController.create);
 
 readerRouter.get("/reader", readerController.read);
 
-readerRouter.get("/reader/:id", readerController.readOne);
+readerRouter.get("/reader/:id", readerController.readId);
 
-readerRouter.patch("/reader/:id", readerController.updateReader);
+readerRouter.patch("/reader/:id", readerController.update);
 
-readerRouter.delete("/reader/:id", readerController.deleteReader);
+readerRouter.delete("/reader/:id", readerController.delete);
 
 module.exports = readerRouter;

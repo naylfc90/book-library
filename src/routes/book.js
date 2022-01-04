@@ -8,10 +8,10 @@ bookRouter.post("/book", bookController.create);
 
 bookRouter.get("/book", bookController.read);
 
-bookRouter.get("/book/:id", bookController.readOne);
+bookRouter.get("/book/:id", bookController.readId);
 
-bookRouter.patch("/book/:id", bookController.updateBook);
+bookRouter.patch("/book/:id", bookController.update);
 
-bookRouter.delete("/book/:id", bookController.deleteBook);
+bookRouter.delete("/book/:id", bookController.delete);
 
 module.exports = bookRouter;

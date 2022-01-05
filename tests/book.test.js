@@ -32,7 +32,7 @@ describe("/books", () => {
         expect(newBookRecord.ISBN).to.equal("9780241988268");
       });
 
-      it("checks validation when creating new book", async () => {
+      it("checks validation when trying to create new book with empty string", async () => {
         const response = await request(app).post("/book").send({
           title: "",
           author: "Richard Osman",

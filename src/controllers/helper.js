@@ -10,13 +10,22 @@ const getModel = (model) => {
   return models[model];
 };
 
+const removePassword = (model) => {
+  if (model.hasOwnProperty("password")) {
+    delete model.password;
+  }
+
+  return model;
+};
+
 exports.createItem = async (res, model, item) => {
   const Model = getModel(model);
 
   try {
-    const newItem = await Model.create(item);
+    const newEntry = await Model.create(item);
+    const itemWithoutPassword = removePassword(newEntry.dataValues);
 
-    res.status(201).json(newItem);
+    res.status(201).json(itemWithoutPassword);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -27,19 +36,23 @@ exports.getItems = async (res, model) => {
 
   try {
     const items = await Model.findAll();
+    const itemWithoutPassword = items.map((item) =>
+      removePassword(item.dataValues)
+    );
 
-    res.status(200).json(items);
+    res.status(200).json(itemWithoutPassword);
   } catch (error) {
     res.status(400).json(error);
   }
 };
 
-exports.getId = async (res, model, id) => {
+exports.getItemById = async (res, model, id) => {
   const Model = getModel(model);
   const item = await Model.findByPk(id);
 
   if (item) {
-    res.status(200).json(item);
+    const itemWithoutPassword = removePassword(item.dataValues);
+    res.status(200).json(itemWithoutPassword);
   } else {
     res.status(404).json({ error: `The ${model} could not be found.` });
   }
@@ -47,10 +60,12 @@ exports.getId = async (res, model, id) => {
 
 exports.updateItem = async (res, model, item, id) => {
   const Model = getModel(model);
-  const [entry] = await Model.update(item, { where: { id } });
+  const [itemToUpdate] = await Model.update(item, { where: { id } });
 
-  if (entry) {
-    res.status(200).json(entry);
+  if (itemToUpdate) {
+    const updatedItem = await Model.findByPk(id);
+    const itemWithoutPassword = removePassword(updatedItem.dataValues);
+    res.status(200).json(itemWithoutPassword);
   } else {
     res.status(404).json({ error: `The ${model} could not be found.` });
   }

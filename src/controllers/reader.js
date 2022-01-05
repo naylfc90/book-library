@@ -4,7 +4,7 @@ const { Reader } = require("../models");
 const {
   createItem,
   getItems,
-  getId,
+  getItemById,
   updateItem,
   deleteItem,
 } = require("./helper");
@@ -13,7 +13,7 @@ exports.create = (req, res) => createItem(res, "reader", req.body);
 
 exports.read = (req, res) => getItems(res, "reader");
 
-exports.readId = (req, res) => getId(res, "reader", req.params.id);
+exports.readId = (req, res) => getItemById(res, "reader", req.params.id);
 
 exports.update = (req, res) =>
   updateItem(res, "reader", req.body, req.params.id);

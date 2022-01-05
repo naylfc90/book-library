@@ -27,14 +27,42 @@ describe("/readers", () => {
         expect(response.body.name).to.equal("Elizabeth Bennet");
         expect(newReaderRecord.name).to.equal("Elizabeth Bennet");
         expect(newReaderRecord.email).to.equal("future_ms_darcy@gmail.com");
-        expect(newReaderRecord.password).to.equal("password");
+        expect(response.body.password).to.equal(undefined);
       });
 
-      it("checks validation when creating new reader", async () => {
+      it("checks validation when creating new reader with empty string", async () => {
         const response = await request(app).post("/reader").send({
           name: "",
           email: "future_ms_darcy@gmail.com",
           password: "password",
+        });
+        const newReaderRecord = await Reader.findByPk(response.body.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(400);
+        expect(newReaderRecord).to.equal(null);
+      });
+
+      it("checks validation when creating new reader with incorrect email format", async () => {
+        const response = await request(app).post("/reader").send({
+          name: "Elizabeth Barnet",
+          email: "future_ms_darcygmailcom",
+          password: "password",
+        });
+        const newReaderRecord = await Reader.findByPk(response.body.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(400);
+        expect(newReaderRecord).to.equal(null);
+      });
+
+      it("checks validation when creating new reader with incorrect password format", async () => {
+        const response = await request(app).post("/reader").send({
+          name: "Elizabeth Barnet",
+          email: "future_ms_darcy@gmail.com",
+          password: "pword",
         });
         const newReaderRecord = await Reader.findByPk(response.body.id, {
           raw: true,
@@ -81,7 +109,7 @@ describe("/readers", () => {
 
           expect(reader.name).to.equal(expected.name);
           expect(reader.email).to.equal(expected.email);
-          expect(reader.password).to.equal(expected.password);
+          expect(reader.password).to.equal(undefined);
         });
       });
     });
@@ -94,7 +122,7 @@ describe("/readers", () => {
         expect(response.status).to.equal(200);
         expect(response.body.name).to.equal(reader.name);
         expect(response.body.email).to.equal(reader.email);
-        expect(response.body.password).to.equal(reader.password);
+        expect(response.body.password).to.equal(undefined);
       });
 
       it("returns a 404 if the reader does not exist", async () => {

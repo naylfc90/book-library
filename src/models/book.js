@@ -15,15 +15,9 @@ module.exports = (connection, DataTypes) => {
     },
     genre: {
       type: DataTypes.STRING,
-      validate: {
-        notEmpty: true,
-      },
     },
     ISBN: {
       type: DataTypes.STRING,
-      validate: {
-        notEmpty: true,
-      },
     },
   };
 

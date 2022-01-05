@@ -1,6 +1,4 @@
 /* src/controllers/book.js */
-const { Book } = require("../models");
-
 const {
   createItem,
   getItems,

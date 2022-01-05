@@ -1,6 +1,4 @@
 /* src/controllers/reader.js */
-const { Reader } = require("../models");
-
 const {
   createItem,
   getItems,

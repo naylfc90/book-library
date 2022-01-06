@@ -13,11 +13,11 @@ const getModel = (model) => {
 };
 
 const getForeignKeys = (model) => {
-  if (model === "book") return { include: Genre }; //include Author too
+  if (model === "book") return { include: [Genre, Author] };
 
   if (model === "genre") return { include: Book };
 
-  // if (model === "author") return { include: Book };
+  if (model === "author") return { include: Book };
 
   return {};
 };
@@ -63,7 +63,7 @@ exports.getItemById = (res, model, id) => {
   const Model = getModel(model);
   const withForeignKeys = getForeignKeys(model);
 
-  return Model.findByPk(id, { includes: withForeignKeys }).then((item) => {
+  return Model.findByPk(id, { ...withForeignKeys }).then((item) => {
     if (!item) {
       res.status(404).json({ error: `The ${model} could not be found.` });
     } else {

@@ -45,9 +45,9 @@ exports.createItem = async (res, model, item) => {
 
 exports.getItems = async (res, model) => {
   const Model = getModel(model);
-  const withForeignKeys = getForeignKeys(model);
 
   try {
+    const withForeignKeys = getForeignKeys(model);
     const items = await Model.findAll({ ...withForeignKeys });
     const itemWithoutPassword = items.map((item) =>
       removePassword(item.dataValues)
@@ -76,13 +76,13 @@ exports.getItemById = (res, model, id) => {
 
 exports.updateItem = async (res, model, item, id) => {
   const Model = getModel(model);
-  const [itemToUpdate] = await Model.update(item, { where: { id } });
 
-  if (itemToUpdate) {
+  try {
+    const [itemToUpdate] = await Model.update(item, { where: { id } });
     const updatedItem = await Model.findByPk(id);
     const itemWithoutPassword = removePassword(updatedItem.dataValues);
     res.status(200).json(itemWithoutPassword);
-  } else {
+  } catch (error) {
     res.status(404).json({ error: `The ${model} could not be found.` });
   }
 };

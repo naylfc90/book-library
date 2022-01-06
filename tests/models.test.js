@@ -48,7 +48,7 @@ describe("/books", () => {
         const updatedBookRecord = await Book.findByPk(book.id, {
           raw: true,
         });
-        console.log(updatedBookRecord);
+
         expect(response.status).to.equal(200);
         expect(updatedBookRecord.GenreId).to.equal(genre.id);
         expect(updatedBookRecord.AuthorId).to.equal(author.id);

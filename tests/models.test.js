@@ -38,7 +38,7 @@ describe("/books", () => {
     });
 
     describe("PATCH /book/:id", () => {
-      it.only("updates books record by PATCHing foreign keys", async () => {
+      it("updates books record by PATCHing foreign keys", async () => {
         const book = books[0];
         const genre = genres[0];
         const author = authors[0];

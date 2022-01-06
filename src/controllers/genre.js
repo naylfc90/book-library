@@ -1,7 +1,7 @@
 /* src/controllers/genre.js */
 const {
   createItem,
-  getItems,
+  getAllBooks,
   getItemById,
   updateItem,
   deleteItem,
@@ -9,7 +9,7 @@ const {
 
 exports.create = (req, res) => createItem(res, "genre", req.body);
 
-exports.read = (req, res) => getItems(res, "genre");
+exports.read = (req, res) => getAllBooks(res, "genre");
 
 exports.readId = (req, res) => getItemById(res, "genre", req.params.id);
 

@@ -48,16 +48,18 @@ exports.getItems = async (res, model) => {
   }
 };
 
-exports.getItemById = async (res, model, id) => {
+exports.getItemById = (res, model, id) => {
   const Model = getModel(model);
-  const item = await Model.findByPk(id);
 
-  if (item) {
-    const itemWithoutPassword = removePassword(item.dataValues);
-    res.status(200).json(itemWithoutPassword);
-  } else {
-    res.status(404).json({ error: `The ${model} could not be found.` });
-  }
+  return Model.findByPk(id, { includes: Genre }).then((item) => {
+    if (!item) {
+      res.status(404).json({ error: `The ${model} could not be found.` });
+    } else {
+      const itemWithoutPassword = removePassword(item.dataValues);
+
+      res.status(200).json(itemWithoutPassword);
+    }
+  });
 };
 
 exports.updateItem = async (res, model, item, id) => {
@@ -82,4 +84,12 @@ exports.deleteItem = async (res, model, id) => {
   } else {
     res.status(404).json({ error: `The ${model} could not be found.` });
   }
+};
+
+exports.getAllBooks = (res, model) => {
+  const Model = getModel(model);
+
+  return Model.findAll({ include: Book }).then((items) => {
+    res.status(200).json(items);
+  });
 };

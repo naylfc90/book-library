@@ -12,6 +12,14 @@ const getModel = (model) => {
   return models[model];
 };
 
+const getForeignKeys = (model) => {
+  if (model === "book") return { include: Genre };
+
+  if (model === "genre") return { include: Book };
+
+  return {};
+};
+
 const removePassword = (model) => {
   if (model.hasOwnProperty("password")) {
     delete model.password;
@@ -35,9 +43,10 @@ exports.createItem = async (res, model, item) => {
 
 exports.getItems = async (res, model) => {
   const Model = getModel(model);
+  const withForeignKeys = getForeignKeys(model);
 
   try {
-    const items = await Model.findAll();
+    const items = await Model.findAll({ ...withForeignKeys });
     const itemWithoutPassword = items.map((item) =>
       removePassword(item.dataValues)
     );
@@ -50,8 +59,9 @@ exports.getItems = async (res, model) => {
 
 exports.getItemById = (res, model, id) => {
   const Model = getModel(model);
+  const withForeignKeys = getForeignKeys(model);
 
-  return Model.findByPk(id, { includes: Genre }).then((item) => {
+  return Model.findByPk(id, { ...withForeignKeys }).then((item) => {
     if (!item) {
       res.status(404).json({ error: `The ${model} could not be found.` });
     } else {

@@ -12,35 +12,35 @@ HTTP Routing functions perform validation to make sure user entry is in line wit
 
 ### Reader
 
-Create Reader - POST to '/reader'
-Read all Reader - GET from '/reader'
-Read one Reader ID - GET from '/reader/:id'
-Update Reader - PATCH '/reader/:id'
-Delete Reader - DELETE '/reader/:id'
+- Create Reader - POST to '/reader'
+- Read all Reader - GET from '/reader'
+- Read one Reader ID - GET from '/reader/:id'
+- Update Reader - PATCH '/reader/:id'
+- Delete Reader - DELETE '/reader/:id'
 
 ### Book
 
-Create Book - POST to '/book'
-Read all Book - GET from '/book'
-Read one Book ID - GET from '/book/:id'
-Update Book - PATCH '/book/:id'
-Delete Book - DELETE '/book/:id'
+- Create Book - POST to '/book'
+- Read all Book - GET from '/book'
+- Read one Book ID - GET from '/book/:id'
+- Update Book - PATCH '/book/:id'
+- Delete Book - DELETE '/book/:id'
 
 ### Genre
 
-Create Genre - POST to '/genre'
-Read all Genre - GET from '/genre'
-Read one Genre ID - GET from '/genre/:id'
-Update Genre - PATCH '/genre/:id'
-Delete Genre - DELETE '/genre/:id'
+- Create Genre - POST to '/genre'
+- Read all Genre - GET from '/genre'
+- Read one Genre ID - GET from '/genre/:id'
+- Update Genre - PATCH '/genre/:id'
+- Delete Genre - DELETE '/genre/:id'
 
 ### Author
 
-Create Author - POST to '/author'
-Read all Author - GET from '/author'
-Read one Author ID - GET from '/author/:id'
-Update Author - PATCH '/author/:id'
-Delete Author - DELETE '/author/:id'
+- Create Author - POST to '/author'
+- Read all Author - GET from '/author'
+- Read one Author ID - GET from '/author/:id'
+- Update Author - PATCH '/author/:id'
+- Delete Author - DELETE '/author/:id'
 
 ## Instructions
 
